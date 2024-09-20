@@ -1,0 +1,28 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mongodb-standalone-pv
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/home/data/dbs"
+
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongodb-standalone
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: ""
+  volumeName: mongodb-standalone-pv
+  resources:
+    requests:
+      storage: 1Gi
